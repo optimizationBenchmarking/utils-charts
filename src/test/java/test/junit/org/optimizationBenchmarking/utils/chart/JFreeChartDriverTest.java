@@ -17,5 +17,4 @@ public class JFreeChartDriverTest extends ChartDriverTest {
   protected JFreeChartDriver getInstance() {
     return JFreeChartDriver.getInstance();
   }
-
 }

@@ -3,7 +3,6 @@
 ##
 ## https://circleci.com/gh/optimizationBenchmarking/utils-charts
 #
-
 machine:
 # Install the newest version of ant.
   pre:
