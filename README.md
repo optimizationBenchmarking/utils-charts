@@ -11,4 +11,4 @@
 [<img alt="Drone IO Build Status" src="https://drone.io/github.com/optimizationBenchmarking/utils-charts/status.png" height="20"/>](https://drone.io/github.com/optimizationBenchmarking/utils-charts/latest)
 
 
-This library provides the chart and diagram painting utility classes used by the [optimizationBenchmarking](http://www.github.com/optimizationBenchmarking/) tool suite. Details about the licensing of this project and the projects it depends on are given in [LICENSE.md](https://github.com/optimizationBenchmarking/utils-graphics/blob/master/LICENSE.md).
+This library provides the chart and diagram painting utility classes used by the [optimizationBenchmarking](http://www.github.com/optimizationBenchmarking/) tool suite. Details about the licensing of this project and the projects it depends on are given in [LICENSE.md](https://github.com/optimizationBenchmarking/utils-charts/blob/master/LICENSE.md).
