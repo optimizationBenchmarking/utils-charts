@@ -36,13 +36,7 @@ public class ExportChartDriverTest extends ChartDriverTest {
 
   /** create */
   public ExportChartDriverTest() {
-    super();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected ExportChartDriver getInstance() {
-    return ExportChartDriver.getInstance();
+    super(ExportChartDriver.getInstance());
   }
 
   /** {@inheritDoc} */

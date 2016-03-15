@@ -9,12 +9,6 @@ public class JFreeChartDriverTest extends ChartDriverTest {
 
   /** create */
   public JFreeChartDriverTest() {
-    super();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected JFreeChartDriver getInstance() {
-    return JFreeChartDriver.getInstance();
+    super(JFreeChartDriver.getInstance());
   }
 }
