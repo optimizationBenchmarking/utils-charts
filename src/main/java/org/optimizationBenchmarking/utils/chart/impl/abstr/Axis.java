@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.optimizationBenchmarking.utils.chart.spec.IAxis;
-import org.optimizationBenchmarking.utils.comparison.Compare;
 import org.optimizationBenchmarking.utils.graphics.style.spec.IBasicStyles;
 import org.optimizationBenchmarking.utils.hierarchy.FSM;
 import org.optimizationBenchmarking.utils.math.NumericalTypes;
@@ -219,14 +218,16 @@ final class Axis extends TitledElement implements IAxis {
       throw new IllegalArgumentException(
           "Minimum aggregate cannot be null.");//$NON-NLS-1$
     }
-    if (!(minimum instanceof IAggregate)) {
-      Axis._assertMax(minimum.doubleValue());
+    if (minimum instanceof IAggregate) {
+      if (minimum == this.m_maximum) {
+        throw new IllegalArgumentException(//
+            "Cannot set minimum aggregate to same value as maximum aggregate, i.e., " //$NON-NLS-1$
+                + minimum);
+      }
+    } else {
+      Axis._assertMin(minimum.doubleValue());
     }
-    if (Compare.equals(minimum, this.m_maximum)) {
-      throw new IllegalArgumentException(//
-          "Cannot set minimum aggregate to same value as maximum aggregate, i.e., " //$NON-NLS-1$
-              + minimum);
-    }
+
     this.fsmFlagsAssertAndUpdate(FSM.FLAG_NOTHING, Axis.FLAG_HAS_MIN,
         Axis.FLAG_HAS_MIN, FSM.FLAG_NOTHING);
     this.m_minimum = minimum;
@@ -240,13 +241,14 @@ final class Axis extends TitledElement implements IAxis {
       throw new IllegalArgumentException(
           "Maximum aggregate cannot be null.");//$NON-NLS-1$
     }
-    if (!(maximum instanceof IAggregate)) {
+    if (maximum instanceof IAggregate) {
+      if (maximum == this.m_minimum) {
+        throw new IllegalArgumentException(//
+            "Cannot set maximum aggregate to same value as minimum aggregate, i.e., " //$NON-NLS-1$
+                + maximum);
+      }
+    } else {
       Axis._assertMax(maximum.doubleValue());
-    }
-    if (Compare.equals(maximum, this.m_minimum)) {
-      throw new IllegalArgumentException(//
-          "Cannot set maximum aggregate to same value as minimum aggregate, i.e., " //$NON-NLS-1$
-              + maximum);
     }
     this.fsmFlagsAssertAndUpdate(FSM.FLAG_NOTHING, Axis.FLAG_HAS_MAX,
         Axis.FLAG_HAS_MAX, FSM.FLAG_NOTHING);
