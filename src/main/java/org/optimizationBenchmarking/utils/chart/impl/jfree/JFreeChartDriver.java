@@ -9,7 +9,17 @@ import org.optimizationBenchmarking.utils.chart.impl.abstr.CompiledPieChart;
 import org.optimizationBenchmarking.utils.reflection.ReflectionUtils;
 
 /**
+ * <p>
  * The driver for JFreeChart-based charts.
+ * </p>
+ * <p>
+ * Warning: This driver may cause the creation of a java AWT event queue
+ * thread ( {@code java.awt.EventDispatchThread}). Oddly enough, even if
+ * all necessary conditions (see
+ * {@code sun.awt.AWTAutoShutDown.isReadyToShutdown()}) are fulfilled, this
+ * thread does not seem to terminate in my setups. Since it is not a
+ * <em>demon</em>, this will stop the application from terminating.
+ * </p>
  */
 public final class JFreeChartDriver extends ChartDriver {
 
