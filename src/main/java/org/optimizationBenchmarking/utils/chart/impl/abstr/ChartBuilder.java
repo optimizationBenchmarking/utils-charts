@@ -114,15 +114,6 @@ public class ChartBuilder extends
     return this.m_styles;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  protected void validate() {
-    super.validate();
-    ChartBuilder._checkGraphic(this.m_graphic);
-    ChartBuilder._checkBasicStyles(this.m_styles);
-    ChartBuilder._checkChartDriver(this.m_driver);
-  }
-
   /**
    * Get the chart driver
    *
@@ -135,8 +126,6 @@ public class ChartBuilder extends
   /** {@inheritDoc} */
   @Override
   public ChartSelector create() {
-    this.validate();
     return new ChartSelector(this);
   }
-
 }
