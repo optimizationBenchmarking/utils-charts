@@ -3,6 +3,7 @@ package org.optimizationBenchmarking.utils.chart.impl.jfree;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.xy.XYDataset;
 import org.optimizationBenchmarking.utils.chart.impl.abstr.CompiledLine2D;
+import org.optimizationBenchmarking.utils.chart.spec.ELineType;
 import org.optimizationBenchmarking.utils.collections.lists.ArrayListView;
 import org.optimizationBenchmarking.utils.math.matrix.IMatrix;
 
@@ -13,7 +14,7 @@ final class _JFreeChartXYDataset extends _JFreeChartDataset<CompiledLine2D>
   /** the shortcut to the data matrices */
   private final IMatrix[] m_matrices;
   /** the type switch */
-  private final int[] m_typeSwitches;
+  private final ELineType[] m_typeSwitches;
   /** the domain order */
   private DomainOrder m_order;
 
@@ -32,29 +33,15 @@ final class _JFreeChartXYDataset extends _JFreeChartDataset<CompiledLine2D>
 
     size = lines.size();
     this.m_matrices = new IMatrix[size];
-    this.m_typeSwitches = new int[size];
+    this.m_typeSwitches = new ELineType[size];
 
     for (i = size; (--i) >= 0;) {
       line = lines.get(i);
       this.m_matrices[i] = line.getData();
-
-      switch (line.getType()) {
-        case STAIRS_KEEP_LEFT: {
-          this.m_typeSwitches[i] = 1;
-          break;
-        }
-        case STAIRS_PREVIEW_RIGHT: {
-          this.m_typeSwitches[i] = 2;
-          break;
-        }
-        default: {
-          this.m_typeSwitches[i] = 0;
-        }
-      }
+      this.m_typeSwitches[i] = line.getType();
     }
 
     this.m_order = null;
-
   }
 
   /** {@inheritDoc} */
@@ -113,8 +100,15 @@ final class _JFreeChartXYDataset extends _JFreeChartDataset<CompiledLine2D>
     final int count;
 
     count = this.m_matrices[series].m();
-    return ((this.m_typeSwitches[series] <= 0) ? count
-        : ((count << 1) - 1));
+    switch (this.m_typeSwitches[series]) {
+      case STAIRS_KEEP_LEFT:
+      case STAIRS_PREVIEW_RIGHT: {
+        return ((count << 1) - 1);
+      }
+      default: {
+        return count;
+      }
+    }
   }
 
   /** {@inheritDoc} */
@@ -141,10 +135,10 @@ final class _JFreeChartXYDataset extends _JFreeChartDataset<CompiledLine2D>
    */
   private final int __getXIndex(final int series, final int item) {
     switch (this.m_typeSwitches[series]) {
-      case 1: {
+      case STAIRS_KEEP_LEFT: {
         return ((item + 1) >>> 1);
       }
-      case 2: {
+      case STAIRS_PREVIEW_RIGHT: {
         return (item >>> 1);
       }
       default: {
@@ -164,10 +158,10 @@ final class _JFreeChartXYDataset extends _JFreeChartDataset<CompiledLine2D>
    */
   private final int __getYIndex(final int series, final int item) {
     switch (this.m_typeSwitches[series]) {
-      case 1: {
+      case STAIRS_KEEP_LEFT: {
         return (item >>> 1);
       }
-      case 2: {
+      case STAIRS_PREVIEW_RIGHT: {
         return ((item + 1) >>> 1);
       }
       default: {

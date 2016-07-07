@@ -26,9 +26,7 @@ import org.optimizationBenchmarking.utils.chart.spec.ELegendMode;
 import org.optimizationBenchmarking.utils.graphics.GraphicUtils;
 
 /**
- * <p>
- * The pie chart as JFreeChar-facade.
- * </p>
+ * The base class for JFreeChart chart renderers.
  *
  * @param <C>
  *          the chart type
@@ -92,8 +90,8 @@ abstract class _JFreeChartRenderer<C extends CompiledChart, D extends Dataset, P
     this.m_chart.setAntiAlias(true);
     this.m_chart.setTextAntiAlias(true);
     this.m_chart.setBorderVisible(false);
-    this.m_chart
-        .setRenderingHints(GraphicUtils.createDefaultRenderingHints());
+    this.m_chart.setRenderingHints(//
+        GraphicUtils.createDefaultRenderingHints());
 
     title = chart.getTitle();
     if (title != null) {
