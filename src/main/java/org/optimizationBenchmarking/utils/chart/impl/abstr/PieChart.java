@@ -131,8 +131,8 @@ public class PieChart extends Chart implements IPieChart {
       }
 
       chart = new CompiledPieChart(this.m_title, titleFont,
-          this.m_legendMode, new ArrayListView<>(this.m_slices
-              .toArray(new CompiledDataScalar[this.m_slices.size()])));
+          this.m_legendMode, new ArrayListView<>(this.m_slices.toArray(
+              new CompiledDataScalar[this.m_slices.size()]), false));
 
       this.m_slices = null;
 

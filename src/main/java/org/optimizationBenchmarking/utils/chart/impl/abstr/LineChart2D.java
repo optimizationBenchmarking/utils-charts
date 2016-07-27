@@ -176,7 +176,7 @@ public class LineChart2D extends Chart implements ILineChart2D {
       chart = new CompiledLineChart2D(this.m_title, titleFont,
           this.m_legendMode, this.m_xAxis._getAxis(),
           this.m_yAxis._getAxis(), new ArrayListView<>(this.m_lines
-              .toArray(new CompiledLine2D[this.m_lines.size()])));
+              .toArray(new CompiledLine2D[this.m_lines.size()]), false));
       if ((logger != null) && (logger.isLoggable(Level.FINEST))) {
         logger.finest("Now rendering the compiled " + this._id()); //$NON-NLS-1$
       }

@@ -53,7 +53,7 @@ class _JFreeChartDataset<T extends CompiledDataElement>
     for (i = size; (--i) >= 0;) {
       keys[i] = Integer.valueOf(data.get(i).getID());
     }
-    this.m_keySet = new ArraySetView<>(keys);
+    this.m_keySet = new ArraySetView<>(keys, false);
   }
 
   /**
