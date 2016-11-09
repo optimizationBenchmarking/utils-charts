@@ -135,13 +135,30 @@ abstract class _JFreeChartRenderer<C extends CompiledChart, D extends Dataset, P
    *          the graphic to render on
    */
   final void _render(final Graphics2D graphic) {
-    final Rectangle2D rect;
+    Rectangle2D rect;
+    int attempts;
 
-    rect = GraphicUtils.getBounds(graphic);
-    if (this.m_legendMode == ELegendMode.CHART_IS_LEGEND) {
-      this._paintAsLegend(graphic, rect);
-    } else {
-      this._paintNormal(graphic, rect);
+    attempts = 7;
+    outer: for (;;) {
+      rect = GraphicUtils.getBounds(graphic);
+
+      try {
+        if (this.m_legendMode == ELegendMode.CHART_IS_LEGEND) {
+          this._paintAsLegend(graphic, rect);
+        } else {
+          this._paintNormal(graphic, rect);
+        }
+      } catch (final IllegalStateException ise) {
+        // attempt to handle strange exceptions sometimes thrown by
+        // JFreeChart: maybe it is not deterministic, who knows
+        if ("We should never get here." //$NON-NLS-1$
+            .equalsIgnoreCase(ise.getMessage())) {
+          if ((--attempts) >= 0) {
+            continue outer;
+          }
+        }
+        throw ise;
+      }
     }
   }
 
