@@ -138,8 +138,7 @@ abstract class _JFreeChartRenderer<C extends CompiledChart, D extends Dataset, P
     Rectangle2D rect;
     int attempts;
 
-    attempts = 7;
-    outer: for (;;) {
+    outer: for (attempts = 7; (--attempts) >= 0;) {
       rect = GraphicUtils.getBounds(graphic);
 
       try {
@@ -148,14 +147,13 @@ abstract class _JFreeChartRenderer<C extends CompiledChart, D extends Dataset, P
         } else {
           this._paintNormal(graphic, rect);
         }
+        return;
       } catch (final IllegalStateException ise) {
         // attempt to handle strange exceptions sometimes thrown by
         // JFreeChart: maybe it is not deterministic, who knows
         if ("We should never get here." //$NON-NLS-1$
             .equalsIgnoreCase(ise.getMessage())) {
-          if ((--attempts) >= 0) {
-            continue outer;
-          }
+          continue outer;
         }
         throw ise;
       }
